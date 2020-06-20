@@ -89,6 +89,20 @@ def get_from_posts(id_user):
     return result
 
 
+def get_sub_categories():
+    conn = get_connection()
+    try:
+        cursor = conn.cursor()
+        sql = 'SELECT c.name as cat, s.name as subcat FROM categories c, subcategories s ' + \
+              'WHERE s.id_category = c.id'
+        cursor.execute(sql)
+        result = []
+        for row in cursor:
+            result.append((row['cat'], row['subcat'].split('~')[:-1]))
+    finally:
+        conn.close()
+    return result
+
 # add_to_db(3285241, 2, "Чертаново")
 x = get_from_users()  # 19471248  3285241
 print(x)
@@ -97,3 +111,4 @@ print(get_categories())
 # add_to_posts(19471248, 'some_link_2')
 # add_to_posts(19471248, 'some_link_3')
 print(get_from_posts(19471248))
+print(get_sub_categories())

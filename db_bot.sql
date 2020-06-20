@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Jun 20, 2020 at 01:13 PM
+-- Generation Time: Jun 20, 2020 at 04:23 PM
 -- Server version: 5.7.24
 -- PHP Version: 7.3.7
 
@@ -42,7 +42,10 @@ INSERT INTO `categories` (`id`, `name`) VALUES
 (2, 'Фрукты'),
 (3, 'Мясо'),
 (4, 'Рыба'),
-(5, 'Хлебобулочные изделия');
+(5, 'Хлебобулочные изделия'),
+(6, 'Детское питание'),
+(7, 'Крупы'),
+(8, 'Макаронные изделия');
 
 -- --------------------------------------------------------
 
@@ -65,6 +68,31 @@ INSERT INTO `posts` (`id`, `id_user`, `link`, `status`) VALUES
 (1, 19471248, 'some_link_1', 1),
 (2, 19471248, 'some_link_2', 1),
 (3, 19471248, 'some_link_3', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `subcategories`
+--
+
+CREATE TABLE `subcategories` (
+  `id_category` int(11) NOT NULL,
+  `name` varchar(1000) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `subcategories`
+--
+
+INSERT INTO `subcategories` (`id_category`, `name`) VALUES
+(7, 'Крупа~Рис~Греча~Гречка~Пшено~Ячка~Горох~'),
+(8, 'Макароны~Лапша~Спагетти~Паста~'),
+(1, 'Помидор~Огурец~Редис~Репа~Лук~Свекла~Морковь~Капуста~Кабачок~Сельдерей~Дайкон~Редька~Картофель~Патиссон~Баклажан~'),
+(2, 'Яблоко~Персик~Груша~Абрикос~Киви~Апельсин~Мандарин~Ананас~Слива~Папайя~Маракуйя~'),
+(3, 'Говядина~Свинина~Курица~Кролик~Гусь~Утка~Баранина~Фарш~Конина~Субпродукты~Супнабор~'),
+(6, 'Пюре~'),
+(4, 'Сельдь~Лосось~Скумбрия~Кета~Горбуша~Кальмар~Мидии~Гребешок~Путассу~Телапия~'),
+(5, 'Хлеб~Батон~Булка~Булочка~Рогалик~Круассан~Ватрушка~');
 
 -- --------------------------------------------------------
 
@@ -118,7 +146,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `categories`
 --
 ALTER TABLE `categories`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `posts`
