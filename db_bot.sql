@@ -2,10 +2,10 @@
 -- version 4.8.3
 -- https://www.phpmyadmin.net/
 --
--- Host: localhost:3306
--- Generation Time: Jun 20, 2020 at 04:23 PM
--- Server version: 5.7.24
--- PHP Version: 7.3.7
+-- Хост: localhost:3306
+-- Время создания: Июн 21 2020 г., 02:49
+-- Версия сервера: 5.7.24
+-- Версия PHP: 7.3.7
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -19,13 +19,13 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `db_bot`
+-- База данных: `db_bot`
 --
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `categories`
+-- Структура таблицы `categories`
 --
 
 CREATE TABLE `categories` (
@@ -34,7 +34,7 @@ CREATE TABLE `categories` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `categories`
+-- Дамп данных таблицы `categories`
 --
 
 INSERT INTO `categories` (`id`, `name`) VALUES
@@ -50,7 +50,28 @@ INSERT INTO `categories` (`id`, `name`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `posts`
+-- Структура таблицы `groups`
+--
+
+CREATE TABLE `groups` (
+  `id` int(11) NOT NULL,
+  `id_user` int(11) NOT NULL,
+  `group_name` varchar(250) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Дамп данных таблицы `groups`
+--
+
+INSERT INTO `groups` (`id`, `id_user`, `group_name`) VALUES
+(1, 19471248, ' https://vk.com/murmewmur'),
+(2, 19471248, ' https://vk.com/public196448452'),
+(6, 19471248, ' https://vk.com/murmewmur');
+
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `posts`
 --
 
 CREATE TABLE `posts` (
@@ -61,7 +82,7 @@ CREATE TABLE `posts` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `posts`
+-- Дамп данных таблицы `posts`
 --
 
 INSERT INTO `posts` (`id`, `id_user`, `link`, `status`) VALUES
@@ -72,7 +93,7 @@ INSERT INTO `posts` (`id`, `id_user`, `link`, `status`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `subcategories`
+-- Структура таблицы `subcategories`
 --
 
 CREATE TABLE `subcategories` (
@@ -81,7 +102,7 @@ CREATE TABLE `subcategories` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `subcategories`
+-- Дамп данных таблицы `subcategories`
 --
 
 INSERT INTO `subcategories` (`id_category`, `name`) VALUES
@@ -97,7 +118,7 @@ INSERT INTO `subcategories` (`id_category`, `name`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `users`
+-- Структура таблицы `users`
 --
 
 CREATE TABLE `users` (
@@ -108,7 +129,7 @@ CREATE TABLE `users` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `users`
+-- Дамп данных таблицы `users`
 --
 
 INSERT INTO `users` (`id`, `id_user`, `id_category`, `location`) VALUES
@@ -116,56 +137,68 @@ INSERT INTO `users` (`id`, `id_user`, `id_category`, `location`) VALUES
 (2, 3285241, 2, 'Чертаново');
 
 --
--- Indexes for dumped tables
+-- Индексы сохранённых таблиц
 --
 
 --
--- Indexes for table `categories`
+-- Индексы таблицы `categories`
 --
 ALTER TABLE `categories`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `posts`
+-- Индексы таблицы `groups`
+--
+ALTER TABLE `groups`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Индексы таблицы `posts`
 --
 ALTER TABLE `posts`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `users`
+-- Индексы таблицы `users`
 --
 ALTER TABLE `users`
   ADD PRIMARY KEY (`id`),
   ADD KEY `fk_id_category` (`id_category`);
 
 --
--- AUTO_INCREMENT for dumped tables
+-- AUTO_INCREMENT для сохранённых таблиц
 --
 
 --
--- AUTO_INCREMENT for table `categories`
+-- AUTO_INCREMENT для таблицы `categories`
 --
 ALTER TABLE `categories`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
--- AUTO_INCREMENT for table `posts`
+-- AUTO_INCREMENT для таблицы `groups`
+--
+ALTER TABLE `groups`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
+-- AUTO_INCREMENT для таблицы `posts`
 --
 ALTER TABLE `posts`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
--- AUTO_INCREMENT for table `users`
+-- AUTO_INCREMENT для таблицы `users`
 --
 ALTER TABLE `users`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
--- Constraints for dumped tables
+-- Ограничения внешнего ключа сохраненных таблиц
 --
 
 --
--- Constraints for table `users`
+-- Ограничения внешнего ключа таблицы `users`
 --
 ALTER TABLE `users`
   ADD CONSTRAINT `fk_id_category` FOREIGN KEY (`id_category`) REFERENCES `categories` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;

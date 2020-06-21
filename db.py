@@ -1,4 +1,5 @@
 import pymysql.cursors
+import json
 
 
 # соединение с БД
@@ -52,7 +53,7 @@ def get_categories():
     conn = get_connection()
     try:
         cursor = conn.cursor()
-        sql = 'SELECT id, name FROM categories'
+        sql = 'SELECT id, name FROM categories ORDER BY id'
         cursor.execute(sql)
         result = []
         for row in cursor:
@@ -103,6 +104,37 @@ def get_sub_categories():
         conn.close()
     return result
 
+
+def add_to_groups(id_user, group_name):
+    conn = get_connection()
+    try:
+        cursor = conn.cursor()
+        sql = 'INSERT INTO groups (id_user, group_name) VALUES (%s, %s)'
+        cursor.execute(sql, (id_user, group_name))
+        conn.commit()
+    finally:
+        conn.close()
+
+
+def make_keyboard():
+    # s = '{"buttons": [[{"action": {"type": "location", "payload": "{\"button\": \"1\"}"}}],' + \
+    #     '[{"action": {"type": "text", "payload": "{\"button\": \"0\"}", "label": "ЗАКОНЧИТЬ"},"color": "positive"}]'
+    s = '{"buttons": [[{"action": {"type": "location", "payload": {\"button\": \"1\"}}}],' + \
+        '[{"action": {"type": "text", "payload": {\"button\": \"0\"}, "label": "ЗАКОНЧИТЬ"},"color": "positive"}]'
+    categories = get_categories()
+    for c in categories:
+        id_cat = c['id']
+        name_cat = c['name']
+        # s += ',[{"action": {"type": "text", "payload": "{\"button\": \"' + str(id_cat + 1) + '\"}",' + \
+        #      '"label": "' + name_cat + '"}, "color": "primary"}]'
+        s += ',[{"action": {"type": "text", "payload": {\"button\": \"' + str(id_cat + 1) + '\"},' + \
+             '"label": "' + name_cat + '"}, "color": "primary"}]'
+    s += '], "one_time": false}'
+    print(s)
+    return json.loads(s)
+
+
+
 # add_to_db(3285241, 2, "Чертаново")
 x = get_from_users()  # 19471248  3285241
 print(x)
@@ -112,3 +144,4 @@ print(get_categories())
 # add_to_posts(19471248, 'some_link_3')
 print(get_from_posts(19471248))
 print(get_sub_categories())
+print(make_keyboard())
