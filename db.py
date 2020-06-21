@@ -119,18 +119,18 @@ def add_to_groups(id_user, group_name):
 def make_keyboard():
     # s = '{"buttons": [[{"action": {"type": "location", "payload": "{\"button\": \"1\"}"}}],' + \
     #     '[{"action": {"type": "text", "payload": "{\"button\": \"0\"}", "label": "ЗАКОНЧИТЬ"},"color": "positive"}]'
-    s = '{"buttons": [[{"action": {"type": "location", "payload": {\"button\": \"1\"}}}],' + \
-        '[{"action": {"type": "text", "payload": {\"button\": \"0\"}, "label": "ЗАКОНЧИТЬ"},"color": "positive"}]'
+    s = '{"buttons": [[{"action": {"type": "location", "payload": {\"button\": \"location\"}}}],' + \
+        '[{"action": {"type": "text", "payload": {\"button\": \"close\"}, "label": "ЗАКОНЧИТЬ"},"color": "positive"}]'
     categories = get_categories()
     for c in categories:
         id_cat = c['id']
         name_cat = c['name']
         # s += ',[{"action": {"type": "text", "payload": "{\"button\": \"' + str(id_cat + 1) + '\"}",' + \
         #      '"label": "' + name_cat + '"}, "color": "primary"}]'
-        s += ',[{"action": {"type": "text", "payload": {\"button\": \"' + str(id_cat + 1) + '\"},' + \
+        s += ',[{"action": {"type": "text", "payload": {\"button\": "category", "id": \"' + str(id_cat + 1) + '\"},' + \
              '"label": "' + name_cat + '"}, "color": "primary"}]'
     s += '], "one_time": false}'
-    print(s)
+    # print(s)
     return json.loads(s)
 
 
